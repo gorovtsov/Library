@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import by.htp.library.bean.Book;
 import by.htp.library.dao.BookDAO;
@@ -32,8 +33,8 @@ public class FileBookDAO implements BookDAO {
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByTitle(String title) throws DAOException {
-		ArrayList<Book> foundBooks = new ArrayList<Book>();
+	public TreeSet<Book> searchBookByTitle(String title) throws DAOException {
+		TreeSet<Book> foundBooks = new TreeSet<Book>();
 		ArrayList<Book> books = readBookData();
 		
 		for(Book book : books) {
@@ -45,8 +46,8 @@ public class FileBookDAO implements BookDAO {
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByAuthor(String author) throws DAOException {
-		ArrayList<Book> foundBooks = new ArrayList<Book>();
+	public TreeSet<Book> searchBookByAuthor(String author) throws DAOException {
+		TreeSet<Book> foundBooks = new TreeSet<Book>();
 		ArrayList<Book> books = readBookData();
 		
 		for(Book book : books) {
@@ -56,7 +57,18 @@ public class FileBookDAO implements BookDAO {
 		}
 		return foundBooks;
 	}
-
+	
+	public boolean isIdAvailable(int id) throws DAOException{
+		ArrayList<Book> books = readBookData();
+		
+		for(Book book : books) {
+			if(book.getId() == id) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	@Override
 	public ArrayList<Book> readBookData() throws DAOException {
 		ArrayList<Book> books = new ArrayList<Book>();

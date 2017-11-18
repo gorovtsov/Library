@@ -1,12 +1,9 @@
 package by.htp.library.service.impl;
 
-import java.io.FileNotFoundException;
-
 import by.htp.library.bean.User;
 import by.htp.library.dao.DAOFactory;
 import by.htp.library.dao.UserDAO;
 import by.htp.library.dao.exception.DAOException;
-import by.htp.library.dao.impl.FileUserDAO;
 import by.htp.library.service.UserService;
 import by.htp.library.service.exception.ServiceException;
 
@@ -51,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean passwordValidation(User user) throws ServiceException {
+	public boolean passwordValidation(User user){
 		if (user.getPassword() == null) {
 			return false;
 		}

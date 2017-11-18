@@ -53,7 +53,6 @@ public class FileUserDAO implements UserDAO {
 
 	}
 
-	@Override
 	public ArrayList<User> readUserData() throws DAOException {
 		ArrayList<User> dbUsers = new ArrayList<User>();
 		String strFromFile = null;

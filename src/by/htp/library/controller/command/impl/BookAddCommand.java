@@ -1,29 +1,30 @@
 package by.htp.library.controller.command.impl;
 
-import by.htp.library.bean.User;
+import by.htp.library.bean.Book;
 import by.htp.library.controller.command.Command;
+import by.htp.library.service.BookService;
 import by.htp.library.service.ServiceFactory;
-import by.htp.library.service.UserService;
 import by.htp.library.service.exception.ServiceException;
 
-public class RegistrationCommand implements Command {
+public class BookAddCommand implements Command {
 
 	@Override
 	public String execute(String request) {
 		String[] params = request.split("\\s+");
 
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
-		UserService userService = serviceFactory.getUserService();
-		User user = new User(Integer.parseInt(params[1]), params[2],params[3],params[4],params[5],params[6]);
+		BookService bookService = serviceFactory.getBookService();
+		Book book = new Book(Integer.parseInt(params[1]), params[2], params[3], Integer.parseInt(params[4]));
 
 		String response = null;
-		
+
 		try {
-			userService.registration(user);
-			response = "User||Name= " + user.getName() + "||Surname= " + user.getSurname() + "| is logged on.";
+			bookService.addBook(book);
+			response = "Book||Author= " + book.getAuthor() + "||title= " + book.getTitle() + "| is added to library.";
 		} catch (ServiceException e) {
 			response = "Sorry, maybe the password is incorrect.";
 		}
+
 		return response;
 	}
 

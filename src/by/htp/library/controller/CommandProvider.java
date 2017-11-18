@@ -12,8 +12,8 @@ public class CommandProvider {
 	private Map<String, Command> commands = new HashMap<>();
 	
 	public CommandProvider() {
-		commands.put("logination", new LoginationCommand());
-		commands.put("registration", new RegistrationCommand());
+		commands.put("userLogination", new LoginationCommand());
+		commands.put("userRegistration", new RegistrationCommand());
 	}
 	
 	public Command getCommand(String commandName) {

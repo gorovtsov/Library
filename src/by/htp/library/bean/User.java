@@ -11,12 +11,13 @@ public class User {
 	public User() {
 	}
 
-	public User(int id, String login, String password, String name, String surname) {
+	public User(int id, String name, String surname, String email, String login, String password) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
+		this.email = email;
 	}
 
 	public int getId() {
