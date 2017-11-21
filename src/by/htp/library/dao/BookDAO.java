@@ -9,8 +9,8 @@ import by.htp.library.dao.exception.DAOException;
 public interface BookDAO {
 	
 	void addBook(Book book) throws DAOException;
-	TreeSet<Book> searchBookByTitle(String title) throws DAOException;
-	TreeSet<Book> searchBookByAuthor(String author) throws DAOException;
+	ArrayList<Book> searchBookByTitle(String title) throws DAOException;
+	ArrayList<Book> searchBookByAuthor(String author) throws DAOException;
 	boolean isIdAvailable(int id) throws DAOException;
 	ArrayList<Book> readBookData() throws DAOException;
 

@@ -13,7 +13,6 @@ public class FrontController {
 		String[] params = request.split("\\s+");
 		String commandName = params[0];
 		String response = null;
-		
 		Command command = provider.getCommand(commandName);
 		response = command.execute(request);
 

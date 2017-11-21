@@ -23,11 +23,13 @@ public class UserServiceImpl implements UserService {
 		User user;
 
 		try {
+			
 			user = userDAO.logination(login, password);
+			
 		} catch (DAOException e) {
 			throw new ServiceException("smth wrong", e);
 		}
-
+		
 		return user;
 	}
 
@@ -37,13 +39,13 @@ public class UserServiceImpl implements UserService {
 
 		UserDAO userDAO = daoFactory.getUserDAO();
 
-		if(passwordValidation(user)) {
+		
 			try {
 				userDAO.registration(user);
 			} catch (DAOException e) {
 				throw new ServiceException("Service Exception in registration", e);
 			}
-		}
+		
 
 	}
 

@@ -14,16 +14,16 @@ import by.htp.library.dao.BookDAO;
 import by.htp.library.dao.exception.DAOException;
 
 public class FileBookDAO implements BookDAO {
-	public final File dbFile = new File("D:\\Projects\\Library\\database\\users.csv");
+	public final File dbFile = new File("c:\\Workspace\\Library\\database\\books.csv");
 
 	@Override
 	public void addBook(Book book) throws DAOException {
 		String strToFile = book.toString();
 
 		try {
-			BufferedWriter dbWriter = new BufferedWriter(new FileWriter(dbFile));
+			BufferedWriter dbWriter = new BufferedWriter(new FileWriter(dbFile, true));
 			dbWriter.write(strToFile);
-			
+
 			dbWriter.flush();
 			dbWriter.close();
 		} catch (IOException e) {
@@ -33,12 +33,12 @@ public class FileBookDAO implements BookDAO {
 	}
 
 	@Override
-	public TreeSet<Book> searchBookByTitle(String title) throws DAOException {
-		TreeSet<Book> foundBooks = new TreeSet<Book>();
+	public ArrayList<Book> searchBookByTitle(String title) throws DAOException {
+		ArrayList<Book> foundBooks = new ArrayList<Book>();
 		ArrayList<Book> books = readBookData();
-		
-		for(Book book : books) {
-			if(book.getTitle().equals(title)) {
+
+		for (Book book : books) {
+			if (book.getTitle().equals(title)) {
 				foundBooks.add(book);
 			}
 		}
@@ -46,29 +46,29 @@ public class FileBookDAO implements BookDAO {
 	}
 
 	@Override
-	public TreeSet<Book> searchBookByAuthor(String author) throws DAOException {
-		TreeSet<Book> foundBooks = new TreeSet<Book>();
+	public ArrayList<Book> searchBookByAuthor(String author) throws DAOException {
+		ArrayList<Book> foundBooks = new ArrayList<Book>();
 		ArrayList<Book> books = readBookData();
-		
-		for(Book book : books) {
-			if(book.getAuthor().equals(author)) {
+
+		for (Book book : books) {
+			if (book.getAuthor().equals(author)) {
 				foundBooks.add(book);
 			}
 		}
 		return foundBooks;
 	}
-	
-	public boolean isIdAvailable(int id) throws DAOException{
+
+	public boolean isIdAvailable(int id) throws DAOException {
 		ArrayList<Book> books = readBookData();
-		
-		for(Book book : books) {
-			if(book.getId() == id) {
+
+		for (Book book : books) {
+			if (book.getId() == id) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	@Override
 	public ArrayList<Book> readBookData() throws DAOException {
 		ArrayList<Book> books = new ArrayList<Book>();
@@ -77,8 +77,7 @@ public class FileBookDAO implements BookDAO {
 		Book book = null;
 		try {
 			BufferedReader dbReader = new BufferedReader(new FileReader(dbFile));
-			while (dbReader.readLine() != null) {
-				strFromFile = dbReader.readLine();
+			while ((strFromFile=dbReader.readLine()) != null) {
 				splittedStr = strFromFile.split(";");
 
 				book = new Book(Integer.parseInt(splittedStr[0]), splittedStr[1], splittedStr[2],

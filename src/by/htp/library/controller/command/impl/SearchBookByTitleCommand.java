@@ -1,5 +1,6 @@
 package by.htp.library.controller.command.impl;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import by.htp.library.bean.Book;
@@ -19,8 +20,7 @@ public class SearchBookByTitleCommand implements Command{
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		BookService bookService = serviceFactory.getBookService();
 		String toFind = params[1];
-		TreeSet<Book> booksFound = new TreeSet<Book>(
-				new BookAuthorComparator().thenComparing(new BookTitleComparator()));
+		ArrayList<Book> booksFound = new ArrayList<Book>();
 
 		String response = "";
 

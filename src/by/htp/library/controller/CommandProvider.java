@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.htp.library.controller.command.Command;
-import by.htp.library.controller.command.impl.LoginationCommand;
-import by.htp.library.controller.command.impl.RegistrationCommand;
+import by.htp.library.controller.command.impl.*;
 
 public class CommandProvider {
 	
@@ -14,6 +13,9 @@ public class CommandProvider {
 	public CommandProvider() {
 		commands.put("userLogination", new LoginationCommand());
 		commands.put("userRegistration", new RegistrationCommand());
+		commands.put("bookAddition", new BookAddCommand());
+		commands.put("searchBookByAuthor", new SearchBookByAuthorCommand());
+		commands.put("searchBookByTitle", new SearchBookByTitleCommand());
 	}
 	
 	public Command getCommand(String commandName) {

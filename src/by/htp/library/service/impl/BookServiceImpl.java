@@ -1,6 +1,7 @@
 package by.htp.library.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import by.htp.library.bean.Book;
@@ -17,14 +18,13 @@ public class BookServiceImpl implements BookService {
 		// validation
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		BookDAO bookDAO = daoFactory.getBookDAO();
-
 		if (book == null) {
-			return;
+			throw new ServiceException("The book object is null", new Exception());
 		}
 		try {
-			if (bookDAO.isIdAvailable(book.getId())) {
+			/*if (bookDAO.isIdAvailable(book.getId())) {
 				return;
-			}
+			}*/
 			bookDAO.addBook(book);
 		} catch (DAOException e) {
 			throw new ServiceException("Smthng wrong...", e);
@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public TreeSet<Book> searchByTitle(String title) throws ServiceException {
+	public ArrayList<Book> searchByTitle(String title) throws ServiceException {
 		// simple validation
 		if (title == null || title.isEmpty()) {
 			return null;
@@ -42,7 +42,7 @@ public class BookServiceImpl implements BookService {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		BookDAO bookDAO = daoFactory.getBookDAO();
 		
-		TreeSet<Book> resBooks;
+		ArrayList<Book> resBooks;
 		
 		try {
 			resBooks = bookDAO.searchBookByTitle(title);
@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService {
 
 	}
 
-	public TreeSet<Book> searchBookByAuthor(String author) throws ServiceException {
+	public ArrayList<Book> searchBookByAuthor(String author) throws ServiceException {
 		if (author == null || author.isEmpty()) {
 			return null;
 		}
@@ -62,7 +62,7 @@ public class BookServiceImpl implements BookService {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		BookDAO bookDAO = daoFactory.getBookDAO();
 		
-		TreeSet<Book> resBooks;
+		ArrayList<Book> resBooks;
 		
 		try {
 			resBooks = bookDAO.searchBookByAuthor(author);

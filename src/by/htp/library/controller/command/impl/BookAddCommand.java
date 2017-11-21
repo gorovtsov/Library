@@ -8,6 +8,7 @@ import by.htp.library.service.exception.ServiceException;
 
 public class BookAddCommand implements Command {
 
+	@SuppressWarnings("finally")
 	@Override
 	public String execute(String request) {
 		String[] params = request.split("\\s+");
@@ -15,17 +16,18 @@ public class BookAddCommand implements Command {
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		BookService bookService = serviceFactory.getBookService();
 		Book book = new Book(Integer.parseInt(params[1]), params[2], params[3], Integer.parseInt(params[4]));
-
+		
+		
 		String response = null;
 
 		try {
 			bookService.addBook(book);
 			response = "Book||Author= " + book.getAuthor() + "||title= " + book.getTitle() + "| is added to library.";
 		} catch (ServiceException e) {
-			response = "Sorry, maybe the password is incorrect.";
+			response = "Book isn't added.";
+		} finally {
+			return response;
 		}
-
-		return response;
 	}
 
 }
